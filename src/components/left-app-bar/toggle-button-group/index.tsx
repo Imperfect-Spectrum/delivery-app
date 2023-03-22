@@ -1,26 +1,40 @@
 import Box from '@mui/material/Box'
 import { ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import { useState } from 'react'
+import { setSelectPage } from '../../../store/selectSlice'
+import { useAppDispatch } from '../../../hook'
+import { Link } from 'react-router-dom'
 
 export function ButtonSelectGroup() {
-  const [value, setValue] = useState('All')
+  const [value, setPage] = useState('zakaz')
+
+  const dispatch = useAppDispatch()
   const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: string) => {
-    setValue(newValue)
+    setPage(newValue)
+    dispatch(setSelectPage({ selectPage: newValue }))
   }
 
+  const buttons = [
+    { value: 'orders', label: 'Заказы', path: '/orders' },
+    { value: 'documents', label: 'Документация о материалах', path: '/documents' },
+    { value: 'bla', label: 'блабла1', path: '/bla' },
+    { value: 'blabla', label: 'блабла2', path: '/blabla' },
+  ]
+
+  const toggleButtons = buttons.map((button) => (
+    <ToggleButton
+      key={button.value}
+      value={button.value}
+      disabled={value === button.value}
+      component={Link}
+      to={button.path}
+      sx={{ textAlign: 'center' }}
+    >
+      {button.label}
+    </ToggleButton>
+  ))
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-      <Box sx={{ height: '100px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-        <Typography
-          sx={{
-            textAlign: 'center',
-            display: 'inline-block',
-          }}
-          variant="h2"
-        >
-          LOGO
-        </Typography>
-      </Box>
       <ToggleButtonGroup
         color="primary"
         size="large"
@@ -31,18 +45,7 @@ export function ButtonSelectGroup() {
         aria-label="Platform"
         value={value}
       >
-        <ToggleButton value="All" disabled={value === 'All'}>
-          Заказы
-        </ToggleButton>
-        <ToggleButton value="Completed" disabled={value === 'Completed'}>
-          Документация о материалах
-        </ToggleButton>
-        <ToggleButton value="Deleted" disabled={value === 'Deleted'}>
-          блабла1
-        </ToggleButton>
-        <ToggleButton value="Deleted2" disabled={value === 'Deleted2'}>
-          блабла2
-        </ToggleButton>
+        {toggleButtons}
       </ToggleButtonGroup>
     </Box>
   )
