@@ -1,9 +1,10 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import { Box } from '@mui/material'
 import { useAppSelector } from '../../hook'
 import { RootState } from '../../store'
 import { Orders } from './orders'
 import { Documents } from './documents'
+import { Home } from './home'
 
 export function ContentBox() {
   const setSelectPage = useAppSelector((state: RootState) => state.selectPage.selectPage)
@@ -11,6 +12,7 @@ export function ContentBox() {
   return (
     <Box position="static" sx={{ width: `calc(100% - 240px)`, marginLeft: '240px' }}>
       <Routes>
+        <Route path="/" element={<Navigate to="/orders" />} />
         <Route path="/orders" element={<Orders />} />
         <Route path="/documents" element={<Documents />} />
         {/* <Route path="/bla" element={<Blabla1 />} />

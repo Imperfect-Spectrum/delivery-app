@@ -6,7 +6,7 @@ import { useAppDispatch } from '../../../hook'
 import { Link } from 'react-router-dom'
 
 export function ButtonSelectGroup() {
-  const [value, setPage] = useState('zakaz')
+  const [value, setPage] = useState('orders')
 
   const dispatch = useAppDispatch()
   const handleChange = (event: React.MouseEvent<HTMLElement>, newValue: string) => {
