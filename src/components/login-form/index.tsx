@@ -1,4 +1,5 @@
 import { Box } from '@material-ui/core'
+import { useNavigate } from 'react-router-dom'
 import { Button, Toolbar, TextField, Typography } from '@mui/material'
 import { useForm, SubmitHandler, Controller, useFormState } from 'react-hook-form'
 import { loginValidation, passwordValidation } from './validation'
@@ -9,12 +10,15 @@ interface ISignInForm {
 }
 
 export function LoginForm() {
+  const navigate = useNavigate()
   const { handleSubmit, control } = useForm<ISignInForm>()
   const { errors } = useFormState({
     control,
   })
 
-  const onSubmit: SubmitHandler<ISignInForm> = (data) => console.log(data)
+  const onSubmit: SubmitHandler<ISignInForm> = (data) => {
+    console.log(data)
+  }
   return (
     <Box
       sx={{

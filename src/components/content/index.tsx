@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate, Router } from 'react-router-dom'
 import { Box } from '@mui/material'
 import { useAppSelector } from '../../hook'
 import { RootState } from '../../store'
@@ -11,13 +11,8 @@ export function ContentBox() {
   console.log(setSelectPage)
   return (
     <Box position="static" sx={{ width: `calc(100% - 240px)`, marginLeft: '240px' }}>
-      <Routes>
-        <Route path="/" element={<Navigate to="/orders" />} />
-        <Route path="/orders" element={<Orders />} />
-        <Route path="/documents" element={<Documents />} />
-        {/* <Route path="/bla" element={<Blabla1 />} />
-        <Route path="/blabla" element={<Blabla2 />} /> */}
-      </Routes>
+      <Route path="page/orders" element={<Orders />} />
+      <Route path="page/documents" element={<Documents />} />
     </Box>
   )
 }

@@ -15,10 +15,10 @@ export function ButtonSelectGroup() {
   }
 
   const buttons = [
-    { value: 'orders', label: 'Заказы', path: '/orders' },
-    { value: 'documents', label: 'Документация о материалах', path: '/documents' },
-    { value: 'bla', label: 'блабла1', path: '/bla' },
-    { value: 'blabla', label: 'блабла2', path: '/blabla' },
+    { value: 'orders', label: 'Заказы', path: 'page/orders' },
+    { value: 'documents', label: 'Документация о материалах', path: 'page/documents' },
+    { value: 'bla', label: 'блабла1', path: 'page/bla' },
+    { value: 'blabla', label: 'блабла2', path: 'page/blabla' },
   ]
 
   const toggleButtons = buttons.map((button) => (
