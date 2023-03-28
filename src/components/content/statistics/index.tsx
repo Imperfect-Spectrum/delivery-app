@@ -1,9 +1,9 @@
 import { Box, Typography } from '@mui/material'
 
-export function Home() {
+export function Statistics() {
   return (
     <Box>
-      <Typography variant="h1">Home</Typography>
+      <Typography variant="h1">Statistics</Typography>
     </Box>
   )
 }

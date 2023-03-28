@@ -1,6 +1,7 @@
-import { Box, Typography, Stack } from '@mui/material'
+import { Box, Typography, Stack, Button } from '@mui/material'
 import { useMemo } from 'react'
 import MaterialReactTable, { type MRT_ColumnDef } from 'material-react-table'
+import { display } from '@mui/system'
 
 type Info = {
   name: string
@@ -309,7 +310,11 @@ export function Orders() {
 
   return (
     <Box>
-      <Typography variant="h1">Orders</Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', marginTop: '20px', marginBottom: '10px' }}>
+        <Button variant="contained" size="large" sx={{ marginLeft: '10px' }}>
+          Создать заказ
+        </Button>
+      </Box>
       <MaterialReactTable
         columns={columns}
         data={data}
@@ -321,9 +326,10 @@ export function Orders() {
           density: 'compact',
           expanded: true,
           pagination: { pageIndex: 0, pageSize: 20 },
+          grouping: ['name'],
         }}
         muiToolbarAlertBannerChipProps={{ color: 'primary' }}
-        muiTableContainerProps={{ sx: { maxHeight: 470 } }}
+        muiTableContainerProps={{ sx: { maxHeight: 500 } }}
       />
     </Box>
   )

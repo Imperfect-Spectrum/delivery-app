@@ -11,7 +11,7 @@ body {
     'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-color: #ffffff;
+  background-color: #f6f5f8;
 }
 
 code {
@@ -22,4 +22,10 @@ p {
   text-align: center;
   font-family: Roboto, sans-serif;
   font-size: 16pt;
+}
+
+.rounded-image {
+  border-radius: 50%;
+  width: 150px;
+  height: 150px;
 }

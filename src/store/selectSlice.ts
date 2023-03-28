@@ -5,7 +5,7 @@ interface SelectType {
 }
 
 const initialState: SelectType = {
-  selectPage: 'All',
+  selectPage: 'Заказы',
 }
 
 const selectSlice = createSlice({
