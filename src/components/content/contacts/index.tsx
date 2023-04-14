@@ -1,4 +1,15 @@
-import { Box, Typography } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+} from '@mui/material'
 import { YMaps, Map, Placemark } from 'react-yandex-maps'
 
 type Info = {
@@ -7,10 +18,6 @@ type Info = {
   phone: string
 }
 
-interface MapProps {
-  center: [number, number]
-  placemarks: { coords: [number, number]; name: string }[]
-}
 const center: [number, number] = [55.76, 37.64]
 
 const placemarks = [
@@ -47,6 +54,14 @@ export function Contacts() {
   return (
     <>
       <Box
+        sx={{ display: 'flex', flexDirection: 'column', marginTop: '20px', marginLeft: '10px', marginBottom: '10px' }}
+      >
+        <Typography variant="h5">Контактная информация</Typography>
+        <Typography variant="h6">
+          На этой странице вы найдете все необходимые способы, чтобы связаться с каждым из наших складов.
+        </Typography>
+      </Box>
+      <Box
         sx={{
           display: 'flex',
           width: '100%',
@@ -56,39 +71,50 @@ export function Contacts() {
           gap: 5,
           marginTop: '30px',
         }}
-      >
-        {data.map((data) => (
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              bgcolor: '#f8f8f8',
-              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.15)',
-              width: '470px',
-              padding: '15px',
-            }}
-          >
-            <Typography variant="h5" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              {data.title}
-            </Typography>
-            <Typography variant="h6" sx={{ wordBreak: 'break-word' }}>
-              {data.description}
-            </Typography>
-            <Typography variant="h6" sx={{ wordBreak: 'break-word' }}>
-              +{data.phone}
-            </Typography>
-          </Box>
-        ))}
-      </Box>
+      ></Box>
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 650 }} aria-label="simple table">
+          <TableHead>
+            <TableRow>
+              <TableCell>
+                <Typography variant="h5" sx={{ fontWeight: '600' }}>
+                  Название склада
+                </Typography>
+              </TableCell>
+              <TableCell align="center">
+                <Typography variant="h5" sx={{ fontWeight: '600' }}>
+                  Адрес
+                </Typography>
+              </TableCell>
+              <TableCell align="right">
+                <Typography variant="h5" sx={{ fontWeight: '600' }}>
+                  Телефон
+                </Typography>
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.map((row) => (
+              <TableRow key={row.title} sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
+                <TableCell scope="row">
+                  <Typography variant="h6">{row.title}</Typography>
+                </TableCell>
+                <TableCell align="center">
+                  <Typography variant="h6">{row.description}</Typography>
+                </TableCell>
+                <TableCell align="right">
+                  <Typography variant="h6">{row.phone}</Typography>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
       <Box
         sx={{
           display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginTop: '50px',
+          marginTop: '30px',
           marginBottom: '20px',
-          marginLeft: '10px',
-          marginRight: '10px',
         }}
       >
         <YMaps>
@@ -102,6 +128,14 @@ export function Contacts() {
             ))}
           </Map>
         </YMaps>
+      </Box>
+      <Box
+        sx={{ display: 'flex', flexDirection: 'column', marginTop: '20px', marginLeft: '10px', marginBottom: '10px' }}
+      >
+        <Typography variant="h5">Не смогли решить вопрос?</Typography>
+        <Typography variant="h6">
+          Воспользуйтесь формой для обратной связи! <Button variant="text">Открыть форму</Button>
+        </Typography>
       </Box>
     </>
   )

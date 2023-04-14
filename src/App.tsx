@@ -13,6 +13,7 @@ function App() {
 
   return (
     <Routes>
+      <Route path="/" element={<Navigate to="page/orders" />} />
       <Route
         path="*"
         element={
@@ -27,6 +28,7 @@ function App() {
         <Route path="page/statistics" element={<Statistics />} />
         <Route path="page/profile" element={<Profile />} />
       </Route>
+
       <Route path="login" element={<LoginForm />} />
     </Routes>
   )
