@@ -1,8 +1,9 @@
-import { Box, Typography, MenuItem, Button, IconButton } from '@mui/material'
-import { useMemo } from 'react'
+import { Box, Typography, Button, IconButton, Modal } from '@mui/material'
+import { useMemo, useState } from 'react'
 import MaterialReactTable, { type MRT_ColumnDef } from 'material-react-table'
 import EditIcon from '@mui/icons-material/Edit'
 import DeleteIcon from '@mui/icons-material/Delete'
+import { MyModalForm } from '../feedbackModal'
 
 type Info = {
   name: string
@@ -13,6 +14,11 @@ type Info = {
 }
 
 export function Orders() {
+  const [openModal, setOpenModal] = useState(false)
+  const handleOpenCloseModal = () => setOpenModal(!openModal)
+  const onSubmitModal = () => {
+    setOpenModal(!openModal)
+  }
   const data: Info[] = [
     {
       name: 'Фанера',
@@ -223,12 +229,12 @@ export function Orders() {
             },
           }}
           enableRowActions
-          renderRowActions={({ row, table }) => (
+          renderRowActions={({ row, table, cell }) => (
             <Box sx={{ display: 'flex', flexWrap: 'nowrap', gap: '8px' }}>
               <IconButton
                 color="primary"
                 onClick={() => {
-                  console.log('Изменить')
+                  console.log(row)
                 }}
               >
                 <EditIcon />
@@ -259,9 +265,27 @@ export function Orders() {
       >
         <Typography variant="h5">Есть вопросы по таблице заказов?</Typography>
         <Typography variant="h6">
-          Воспользуйтесь формой для обратной связи! <Button variant="text">Открыть форму</Button>
+          Воспользуйтесь формой для обратной связи!
+          <Button variant="text" onClick={onSubmitModal}>
+            Открыть форму
+          </Button>
         </Typography>
       </Box>
+      <Modal open={openModal} onClose={handleOpenCloseModal}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '700px',
+            borderRadius: '20px',
+            p: 0,
+          }}
+        >
+          <MyModalForm open={openModal} setOpen={setOpenModal} />
+        </Box>
+      </Modal>
     </>
   )
 }

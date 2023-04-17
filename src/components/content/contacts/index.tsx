@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import {
   Box,
   Typography,
@@ -9,8 +10,10 @@ import {
   TableRow,
   Paper,
   Button,
+  Modal,
 } from '@mui/material'
 import { YMaps, Map, Placemark } from 'react-yandex-maps'
+import { MyModalForm } from '../feedbackModal'
 
 type Info = {
   title: string
@@ -51,6 +54,11 @@ const data: Info[] = [
 ]
 
 export function Contacts() {
+  const [openModal, setOpenModal] = useState(false)
+  const handleOpenCloseModal = () => setOpenModal(!openModal)
+  const onSubmitModal = () => {
+    setOpenModal(!openModal)
+  }
   return (
     <>
       <Box
@@ -134,9 +142,27 @@ export function Contacts() {
       >
         <Typography variant="h5">Не смогли решить вопрос?</Typography>
         <Typography variant="h6">
-          Воспользуйтесь формой для обратной связи! <Button variant="text">Открыть форму</Button>
+          Воспользуйтесь формой для обратной связи!
+          <Button variant="text" onClick={onSubmitModal}>
+            Открыть форму
+          </Button>
         </Typography>
       </Box>
+      <Modal open={openModal} onClose={handleOpenCloseModal}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '700px',
+            borderRadius: '20px',
+            p: 0,
+          }}
+        >
+          <MyModalForm open={openModal} setOpen={setOpenModal} />
+        </Box>
+      </Modal>
     </>
   )
 }

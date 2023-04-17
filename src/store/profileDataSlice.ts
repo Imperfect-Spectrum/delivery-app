@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 interface Info {
-  firstName: string
-  lastName: string
-  companyName: string
-  address: string
-  telephone: string
-  mail: string
+  firstName?: string
+  lastName?: string
+  companyName?: string
+  address?: string
+  telephone?: string
+  mail?: string
 }
 
 interface InfoState {
@@ -28,27 +28,27 @@ const profileDataSlice = createSlice({
   name: 'info',
   initialState,
   reducers: {
-    setFirstName: (state, action: PayloadAction<string>) => {
-      state.infoData.firstName = action.payload
-    },
-    setLastName: (state, action: PayloadAction<string>) => {
-      state.infoData.lastName = action.payload
-    },
-    setCompanyName: (state, action: PayloadAction<string>) => {
-      state.infoData.companyName = action.payload
-    },
-    setAddress: (state, action: PayloadAction<string>) => {
-      state.infoData.address = action.payload
-    },
-    setTelephone: (state, action: PayloadAction<string>) => {
-      state.infoData.telephone = action.payload
-    },
-    setMail: (state, action: PayloadAction<string>) => {
-      state.infoData.mail = action.payload
+    updateInfoData: (state: InfoState, action: PayloadAction<Info>) => {
+      const { firstName, lastName, address, telephone, mail } = action.payload
+      const { infoData } = state
+
+      const updatedInfoData = {
+        firstName: firstName ?? infoData.firstName,
+        lastName: lastName ?? infoData.lastName,
+        companyName: infoData.companyName,
+        address: address ?? infoData.address,
+        telephone: telephone ?? infoData.telephone,
+        mail: mail ?? infoData.mail,
+      }
+
+      return {
+        ...state,
+        infoData: updatedInfoData,
+      }
     },
   },
 })
 
-export const { setFirstName, setLastName, setCompanyName, setAddress, setTelephone, setMail } = profileDataSlice.actions
+export const { updateInfoData } = profileDataSlice.actions
 
 export default profileDataSlice.reducer

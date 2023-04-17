@@ -10,7 +10,6 @@ interface ISignInForm {
 }
 
 export function LoginForm() {
-  const navigate = useNavigate()
   const { handleSubmit, control } = useForm<ISignInForm>({
     defaultValues: {
       login: '',

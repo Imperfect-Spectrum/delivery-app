@@ -1,12 +1,5 @@
 import { useAppDispatch, useAppSelector } from '../../../../hook'
-import {
-  setAddress,
-  setCompanyName,
-  setFirstName,
-  setLastName,
-  setMail,
-  setTelephone,
-} from '../../../../store/profileDataSlice'
+import { updateInfoData } from '../../../../store/profileDataSlice'
 import { Box } from '@material-ui/core'
 import { Button, TextField, Typography } from '@mui/material'
 import { useForm, SubmitHandler, Controller, useFormState } from 'react-hook-form'
@@ -21,6 +14,7 @@ interface InfoInForm {
 }
 
 export function MyModalForm() {
+  const dispatch = useAppDispatch()
   const profileData = useAppSelector((state: RootState) => state.profileData)
   const { handleSubmit, control } = useForm<InfoInForm>({
     defaultValues: {
@@ -36,7 +30,7 @@ export function MyModalForm() {
   })
 
   const onSubmit: SubmitHandler<InfoInForm> = (data) => {
-    console.log(data)
+    dispatch(updateInfoData(data))
   }
 
   return (

@@ -1,6 +1,7 @@
 import { useState } from 'react'
-import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Button } from '@mui/material'
+import { Box, Typography, Accordion, AccordionSummary, AccordionDetails, Button, Modal } from '@mui/material'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
+import { MyModalForm } from '../feedbackModal'
 
 type Info = {
   title: string
@@ -38,6 +39,11 @@ const data: Info[] = [
 export function Documents() {
   const [expanded, setExpanded] = useState<string | false>(false)
 
+  const [openModal, setOpenModal] = useState(false)
+  const handleOpenCloseModal = () => setOpenModal(!openModal)
+  const onSubmitModal = () => {
+    setOpenModal(!openModal)
+  }
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false)
   }
@@ -52,8 +58,8 @@ export function Documents() {
         </Typography>
       </Box>
       {data.map((data) => (
-        <Accordion expanded={expanded === data.title} onChange={handleChange(data.title)}>
-          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content" id="panel1bh-header">
+        <Accordion expanded={expanded === data.title} onChange={handleChange(data.title)} key={data.title}>
+          <AccordionSummary expandIcon={<ExpandMoreIcon />} aria-controls="panel1bh-content">
             <Typography variant="h5" sx={{ width: '33%', flexShrink: 0 }}>
               {data.title}
             </Typography>
@@ -70,9 +76,27 @@ export function Documents() {
       >
         <Typography variant="h5">Не смогли найти нужной информации?</Typography>
         <Typography variant="h6">
-          Воспользуйтесь формой для обратной связи! <Button variant="text">Открыть форму</Button>
+          Воспользуйтесь формой для обратной связи!{' '}
+          <Button variant="text" onClick={onSubmitModal}>
+            Открыть форму
+          </Button>
         </Typography>
       </Box>
+      <Modal open={openModal} onClose={handleOpenCloseModal}>
+        <Box
+          sx={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: '700px',
+            borderRadius: '20px',
+            p: 0,
+          }}
+        >
+          <MyModalForm open={openModal} setOpen={setOpenModal} />
+        </Box>
+      </Modal>
     </div>
   )
 }
