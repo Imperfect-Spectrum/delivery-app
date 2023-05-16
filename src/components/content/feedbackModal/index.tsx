@@ -4,6 +4,7 @@ import { Box } from '@material-ui/core'
 import { Button, TextField, Typography } from '@mui/material'
 import { useForm, SubmitHandler, Controller, useFormState } from 'react-hook-form'
 import { RootState } from '../../../store'
+import { addFeedbackComment } from '../../../store/feedbackDataSlice'
 
 interface InfoInForm {
   data: string
@@ -16,6 +17,7 @@ export function MyModalForm({
   open: boolean
   setOpen: React.Dispatch<React.SetStateAction<boolean>>
 }) {
+  const dispatch = useAppDispatch()
   const chapter = useAppSelector((state: RootState) => state.selectPage)
   const { handleSubmit, control } = useForm<InfoInForm>({
     defaultValues: {
@@ -27,8 +29,9 @@ export function MyModalForm({
   })
 
   const onSubmit: SubmitHandler<InfoInForm> = (data) => {
-    const newData = { ...data, ...chapter }
+    const newData = { id: new Date().getTime(), ...data, ...chapter, status: 'В обработке' }
     console.log(newData)
+    dispatch(addFeedbackComment({ newData }))
     setOpen(!open)
   }
 
@@ -51,7 +54,7 @@ export function MyModalForm({
     >
       <Typography variant="h4">Опишите</Typography>
       <Typography variant="subtitle1" gutterBottom>
-        Свою проблему, мы обязательно вам перезвоним!
+        Свою проблему, мы обязательно вам поможем!
       </Typography>
       <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
@@ -60,9 +63,10 @@ export function MyModalForm({
           render={({ field }) => (
             <TextField
               label="Комментарий"
+              multiline
+              fullWidth
               onChange={(e) => field.onChange(e)}
               value={field.value}
-              fullWidth={true}
               size="small"
               margin="normal"
               error={!!errors.data?.message}

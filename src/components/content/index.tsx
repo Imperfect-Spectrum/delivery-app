@@ -5,6 +5,7 @@ import { Documents } from './documents'
 import { Contacts } from './contacts'
 import { Statistics } from './statistics'
 import { Profile } from './profile'
+import { Appeals } from './appeals'
 
 export function ContentBox() {
   return (
@@ -14,6 +15,7 @@ export function ContentBox() {
       <Route path="page/contacts" element={<Contacts />} />
       <Route path="page/statistics" element={<Statistics />} />
       <Route path="page/profile" element={<Profile />} />
+      <Route path="page/appeals" element={<Appeals />} />
     </Box>
   )
 }

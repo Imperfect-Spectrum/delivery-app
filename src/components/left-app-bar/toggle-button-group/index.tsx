@@ -20,6 +20,7 @@ export function ButtonSelectGroup() {
     { value: 'Документация о материалах', label: 'Документация о материалах', path: 'page/documents' },
     { value: 'Контактная информация', label: 'Контактная информация', path: 'page/contacts' },
     { value: 'Статистика по заказам', label: 'Статистика по заказам', path: 'page/statistics' },
+    { value: 'Ваши обращения', label: 'Ваши обращения', path: 'page/appeals' },
   ]
 
   const toggleButtons = buttons.map((button) => (

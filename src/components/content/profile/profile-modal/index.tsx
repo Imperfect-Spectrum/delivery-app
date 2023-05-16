@@ -13,7 +13,13 @@ interface InfoInForm {
   mail: string
 }
 
-export function MyModalForm() {
+export function MyModalForm({
+  open,
+  setOpen,
+}: {
+  open: boolean
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>
+}) {
   const dispatch = useAppDispatch()
   const profileData = useAppSelector((state: RootState) => state.profileData)
   const { handleSubmit, control } = useForm<InfoInForm>({
@@ -31,6 +37,7 @@ export function MyModalForm() {
 
   const onSubmit: SubmitHandler<InfoInForm> = (data) => {
     dispatch(updateInfoData(data))
+    setOpen(!open)
   }
 
   return (

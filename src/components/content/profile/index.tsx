@@ -220,12 +220,12 @@ export function Profile() {
             top: '50%',
             left: '50%',
             transform: 'translate(-50%, -50%)',
-            width: 700,
-            p: 4,
-            margin: 'auto',
+            width: '500px',
+            borderRadius: '20px',
+            p: 0,
           }}
         >
-          <MyModalForm />
+          <MyModalForm open={openModal} setOpen={setOpenModal} />
         </Box>
       </Modal>
     </Box>

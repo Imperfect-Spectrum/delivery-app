@@ -14,44 +14,10 @@ import {
 } from '@mui/material'
 import { YMaps, Map, Placemark } from 'react-yandex-maps'
 import { MyModalForm } from '../feedbackModal'
-
-type Info = {
-  title: string
-  description: string
-  phone: string
-}
+import { useAppSelector } from '../../../hook'
+import { RootState } from '../../../store'
 
 const center: [number, number] = [55.76, 37.64]
-
-const placemarks = [
-  { coords: [55.607204, 37.726152], name: 'Склад №1' },
-  { coords: [55.655138, 37.767016], name: 'Склад №2' },
-  { coords: [55.752359, 37.769208], name: 'Склад №3' },
-  { coords: [55.712158, 37.749831], name: 'Склад №4' },
-]
-
-const data: Info[] = [
-  {
-    title: 'Склад1',
-    description: 'улица Генерала Белова, 45к2, Москва, 115583',
-    phone: '7999999999',
-  },
-  {
-    title: 'Склад2',
-    description: 'Братиславская улица, 27к3, Москва, 109469',
-    phone: '7999999999',
-  },
-  {
-    title: 'Склад3',
-    description: '1-й проезд Перова Поля, 3с7, Москва, 111141',
-    phone: '7999999999',
-  },
-  {
-    title: 'Склад4',
-    description: 'Окская улица, 1к2, Москва, 109125',
-    phone: '7999999999',
-  },
-]
 
 export function Contacts() {
   const [openModal, setOpenModal] = useState(false)
@@ -59,6 +25,8 @@ export function Contacts() {
   const onSubmitModal = () => {
     setOpenModal(!openModal)
   }
+
+  const data = useAppSelector((state: RootState) => state.contactsDataData.contactsData)
   return (
     <>
       <Box
@@ -127,11 +95,11 @@ export function Contacts() {
       >
         <YMaps>
           <Map defaultState={{ center, zoom: 10 }} width="100%" height={450}>
-            {placemarks.map((placemark) => (
+            {data.map((placemark) => (
               <Placemark
-                key={placemark.name}
+                key={placemark.title}
                 geometry={placemark.coords}
-                properties={{ iconCaption: placemark.name }}
+                properties={{ iconCaption: placemark.title }}
               />
             ))}
           </Map>

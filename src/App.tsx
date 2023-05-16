@@ -7,6 +7,7 @@ import { LoginForm } from './components/login-form'
 import { MainPage } from './components/main-page'
 import { PrivateRoute } from './components/private-route'
 import { Profile } from './components/content/profile'
+import { Appeals } from './components/content/appeals'
 
 function App() {
   const isAuthenticated = true
@@ -27,6 +28,7 @@ function App() {
         <Route path="page/contacts" element={<Contacts />} />
         <Route path="page/statistics" element={<Statistics />} />
         <Route path="page/profile" element={<Profile />} />
+        <Route path="page/appeals" element={<Appeals />} />
       </Route>
 
       <Route path="login" element={<LoginForm />} />
